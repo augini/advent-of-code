@@ -10,7 +10,7 @@ def find_power_consumption(input):
   gamma_rate=epsilon_rate=''
   zero_count=one_count=0
 
-  for y in range(0, len(input[0])):
+  for y in range(len(input[0])):
     for x in range(len(input)):
       if input[x][y]=='0':
         zero_count+=1
@@ -30,48 +30,38 @@ def find_power_consumption(input):
 
 # print(find_power_consumption(get_sample("sample_input.txt"))) 
 
+
 #part_2
 def part_2(input):
-  zero_count=one_count=0
-  o_rating=sc_rating=input
-
-  for y in range(len(o_rating[0])):
-    for x in range(len(o_rating)):
-      if o_rating[x][y]=='0':
-        zero_count+=1
-      else:
-        one_count+=1
-
-    if one_count >= zero_count:
-      filter_o_rating = filter(lambda report: report[y] == '1', o_rating)
-      o_rating = list(filter_o_rating)
-
-    elif zero_count > one_count:
-      filter_o_rating = filter(lambda report: report[y] == '0', o_rating)
-      o_rating = list(filter_o_rating)
-    zero_count=one_count=0
-    if len(o_rating) == 1:
-      break
-
-  for y in range(len(sc_rating[0])):
-    for x in range(len(sc_rating)):
-      if sc_rating[x][y]=='0':
-        zero_count+=1
-      else:
-        one_count+=1
-
-    if one_count >= zero_count:
-      filter_sc_rating = filter(lambda report: report[y] == '0', sc_rating)
-      sc_rating = list(filter_sc_rating)
-    elif zero_count > one_count:
-      filter_sc_rating = filter(lambda report: report[y] == '1', sc_rating)
-      sc_rating = list(filter_sc_rating)
-    zero_count=one_count=0
-
-    if len(sc_rating) == 1:
-      break
-
+  o_rating = calculate_rating(input,"1","0")
+  sc_rating = calculate_rating(input,"0","1")
 
   return int(o_rating[0],2) * int(sc_rating[0],2)
+
+# helper function to calculate rating
+def calculate_rating(input, filter_one, filter_two):
+  zero_count=one_count=0
+
+  for y in range(len(input[0])):
+    for x in range(len(input)):
+      if input[x][y]=='0':
+        zero_count+=1
+      else:
+        one_count+=1
+
+    if one_count >= zero_count:
+      filter_input = filter(lambda report: report[y] == filter_one, input)
+      input = list(filter_input)
+
+    elif zero_count > one_count:
+      filter_input = filter(lambda report: report[y] == filter_two, input)
+      input = list(filter_input)
+    zero_count=one_count=0
+
+    if len(input) == 1:
+      return input
+
+  return input
+
 
 print(part_2(get_sample("sample_input.txt"))) 
