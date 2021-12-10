@@ -25,43 +25,43 @@ def find_low_points(input):
 
 # print(find_low_points(get_sample("input.txt")))
 
-def calculate_paths(input, x, y, basin, indexes):
-  # print(x,y)
+def find_coor(input, x, y, basin, indexes):
+
   if int(input[x][y-1]) - int(input[x][y]) in (0,1,2) and int(input[x][y-1]) != 9:
     if f"{x,y-1}" not in indexes:
       basin.append(input[x][y-1])
       indexes.append(f"{x,y-1}")
-      calculate_paths(input, x, y-1, basin, indexes)
+      find_coor(input, x, y-1, basin, indexes)
       
   if y < len(input[x])-1 and int(input[x][y+1]) - int(input[x][y]) in (0,1,2) and int(input[x][y+1]) != 9 :
     if f"{x,y+1}" not in indexes:
       basin.append(input[x][y+1])
       indexes.append(f"{x,y+1}")
-      calculate_paths(input, x, y+1, basin, indexes)
+      find_coor(input, x, y+1, basin, indexes)
 
   if x == 0 and int(input[x+1][y]) - int(input[x][y]) in (0,1,2) and int(input[x+1][y]) != 9:
     if f"{x+1,y}" not in indexes:
       basin.append(input[x+1][y])
       indexes.append(f"{x+1,y}")
-      calculate_paths(input, x+1, y, basin, indexes)
+      find_coor(input, x+1, y, basin, indexes)
 
   if x == len(input)-1 and int(input[x-1][y]) - int(input[x][y]) in (0,1,2) and int(input[x-1][y]) != 9:
     if f"{x-1,y}" not in indexes:
       basin.append(input[x-1][y])
       indexes.append(f"{x-1,y}")
-      calculate_paths(input, x-1, y, basin, indexes)
+      find_coor(input, x-1, y, basin, indexes)
   
   if x > 0 and x < len(input)-1 and int(input[x+1][y]) - int(input[x][y]) in (0,1,2) and int(input[x+1][y]) != 9:
     if f"{x+1,y}" not in indexes:
       basin.append(input[x+1][y])
       indexes.append(f"{x+1,y}")
-      calculate_paths(input, x+1, y, basin, indexes)
+      find_coor(input, x+1, y, basin, indexes)
 
   if x > 0 and x < len(input)-1 and int(input[x-1][y]) - int(input[x][y]) in (0,1,2) and int(input[x-1][y]) != 9:
     if f"{x-1,y}" not in indexes:
       basin.append(input[x-1][y])
       indexes.append(f"{x-1,y}")
-      calculate_paths(input, x-1, y, basin, indexes)
+      find_coor(input, x-1, y, basin, indexes)
   
   return len(basin)+1
   
@@ -76,11 +76,11 @@ def find_basins(input):
       if (y < len(input[x])-1 and y > 0 and input[x][y] < input[x][y-1] and input[x][y] < input[x][y+1]) or (y == len(input[x])-1 and input[x][y] < input[x][y-1]) or (y == 0 and input[x][y] < input[x][y+1]):
         if (x==0 and input[x][y] < input[x+1][y]) or (x==len(input)-1 and input[x][y] < input[x-1][y]):
           low_points.append(input[x][y])
-          sizes.append(calculate_paths(input, x, y, [],[]))
+          sizes.append(find_coor(input, x, y, [],[]))
 
         elif x !=len(input)-1 and input[x][y] < input[x+1][y] and input[x][y] < input[x-1][y]:
           low_points.append(input[x][y])
-          sizes.append(calculate_paths(input, x, y, [],[]))
+          sizes.append(find_coor(input, x, y, [],[]))
 
   sizes.sort()
 
