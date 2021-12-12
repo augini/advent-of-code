@@ -49,19 +49,12 @@ def find_number_points(input):
           for x in range(min(x1, x2), max(x1, x2)+1):
               coor_set[f"{x},{y1}"]+=1
         elif abs(x1 - x2) == abs(y1 - y2):
-          min_x = min(x1, x2)
-          max_x = max(x1, x2)
+          x_sign = 1 if x2 > x1 else -1
+          y_sign = 1 if y2 > y1 else -1
 
-          min_y = min(y1, y2)
-          max_y = max(y1, y2)
-
-          for i in range(min_x, max_x+1):
-            for j in range(min_y, max_y+1):
-              if i == j:
-                coor_set[f"{i},{j}"] += 1
-              if i >= max_y:
-                break
-
+          for i,j in zip(range(x1, x2+x_sign, x_sign),range(y1, y2+y_sign, y_sign)):
+              coor_set[f"{i},{j}"] += 1
+              
   points = coor_set.values()
   result = filter(lambda x: x >= 2, points)
   return len(list(result))

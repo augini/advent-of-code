@@ -43,6 +43,7 @@ def find_sum(board):
 
 # part 1
 def play_bingo(input):
+
     boards = []
 
     numbers = input[0].split(",")
@@ -56,6 +57,7 @@ def play_bingo(input):
             boards.append(temp)
             temp = []
 
+
     # loop through bingo numbers
     current_number = 0
     for x in numbers:
@@ -65,15 +67,17 @@ def play_bingo(input):
                 for m in range(len(y)):
                     if y[m] == x:
                         y[m] = y[m] + "*"
+                        
         for a in range(0, len(boards), 5):
             all_bold = check_bolds(boards[a : a + 5])
             if all_bold:
                 sum = find_sum(boards[a : a + 5])
                 # print(sum, current_number)
                 return sum * current_number
+        print(boards)
 
 
-# print(play_bingo(get_file_content("input.txt")))
+print(play_bingo(get_file_content("input.txt")))
 
 
 # put all boards into stack as they win
