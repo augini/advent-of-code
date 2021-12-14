@@ -8,11 +8,14 @@ from utils.get_input import get_sample
 def find_number_points(input):
   coordinates = []
 
+  # print(input)
+
   # remove -> and store the coordinates in 2d array
   for line in range(0,len(input),3):
     coordinates.append([input[line], input[line+2]])
   coor_set = defaultdict(int)
 
+  # print(coordinates)
   for cor in coordinates:
         x1,x2 = int(cor[0].split(',')[0]), int(cor[1].split(',')[0])
         y1,y2 = int(cor[0].split(',')[1]), int(cor[1].split(',')[1])
@@ -23,11 +26,13 @@ def find_number_points(input):
         elif y1 == y2:
           for x in range(min(x1, x2), max(x1, x2)+1):
               coor_set[f"{x},{y1}"]+=1
+
+  # print(coor_set)
   points = coor_set.values()
   result = filter(lambda x: x >= 2, points)
   return len(list(result))
 
-# print(find_number_points(get_sample("input.txt")))
+# print(find_number_points(get_sample("sample_input.txt")))
 
 # part 2
 def find_number_points(input):
@@ -59,4 +64,4 @@ def find_number_points(input):
   result = filter(lambda x: x >= 2, points)
   return len(list(result))
 
-print(find_number_points(get_sample("input.txt")))
+print(find_number_points(get_sample("sample_input.txt")))
