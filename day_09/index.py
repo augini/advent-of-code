@@ -6,6 +6,7 @@ from utils.get_input import get_sample
 
 # part 1
 def find_low_points(input):
+  # print(input)
   low_points = []
 
   for x in range(len(input)):
@@ -23,7 +24,7 @@ def find_low_points(input):
   return sum
 
 
-# print(find_low_points(get_sample("input.txt")))
+# print(find_low_points(get_sample("sample_input.txt")))
 
 def find_coor(input, x, y, basin, indexes):
 
@@ -62,7 +63,8 @@ def find_coor(input, x, y, basin, indexes):
       basin.append(input[x-1][y])
       indexes.append(f"{x-1,y}")
       find_coor(input, x-1, y, basin, indexes)
-  
+
+  print(basin)
   return len(basin)+1
   
 
@@ -91,4 +93,4 @@ def find_basins(input):
     result *= x
   return result
 
-print(find_basins(get_sample("input.txt")))
+print(find_basins(get_sample("sample_input.txt")))

@@ -2,18 +2,17 @@
 import sys
 # append the path of the sibling directory
 sys.path.append('..')
-from utils.get_input import get_sample
+from utils.get_input import get_sample, get_sample_seperator
 
 
 def align_carbs(input):
-  sum =0
+  # print(input)
   for i in range(len(input)):
     input[i] = int(input[i])
 
-  for x in input:
-    sum+=x
-
+  # print(input)
   
+
 
   sum_collection = {}
   for x in range(len(input)):
@@ -28,23 +27,18 @@ def align_carbs(input):
       else:
         sum_collection[f"{x}-{one}"]=abs(one-two)
 
-
+  print(sum_collection)
   return min(sum_collection.values())
 
-# print(align_carbs(get_sample("sample_input.txt")))
+# print(align_carbs(get_sample_seperator("sample_input.txt",",")))
 
 def summutate(end):
   return int(end*(1+end)/2)
 
 def align_carbs_2(input):
-  sum =0
+
   for i in range(len(input)):
     input[i] = int(input[i])
-
-  for x in input:
-    sum+=x
-
-  
 
   sum_collection = {}
   for x in range(len(input)):
@@ -64,9 +58,7 @@ def align_carbs_2(input):
   sortdict = dict(sum_list)
 
   return sortdict
-  # input.sort()
-  # return input
 
-print(align_carbs_2(get_sample("input.txt")))
+print(align_carbs_2(get_sample_seperator("input.txt",",")))
 
 # 92881138

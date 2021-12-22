@@ -7,7 +7,7 @@ from utils.get_input import get_sample_seperator
 def count_instances(input):
   second_half = []
   for x in input:
-    second_half.append(x[x.index('|')+2:len(x)])
+    second_half.append(x[x.index('|')+2:])
   
   counter = 0
   for i in " ".join(second_half).split(" "):
@@ -16,7 +16,7 @@ def count_instances(input):
 
   return counter
 
-# print(count_instances(get_sample_seperator("input.txt", "\n")))
+# print(count_instances(get_sample_seperator("sample_input.txt", "\n")))
 
 def decode_digits(input):
   first_half = []
@@ -31,8 +31,10 @@ def decode_digits(input):
 
   for x in input:
     second_half.append(x[x.index('|')+2:len(x)])
+
   for x in range(len(second_half)):
     second_half[x] = second_half[x].split(" ")
+ 
 
   for values in first_half:
     temp = []
@@ -51,6 +53,7 @@ def decode_digits(input):
         temp.append({"6":i})
 
     decoded_outputs.append(temp)
+    # print(decoded_outputs)
     for m in decoded_outputs:
       seven_segments = [x for x in m if x.get("7") != None][0].get("7")
       four_segments = [x for x in m if x.get("4") != None][0].get("4")
@@ -113,4 +116,4 @@ def decode_digits(input):
 
   return total_sum
 
-print(decode_digits(get_sample_seperator("input.txt", "\n")))
+print(decode_digits(get_sample_seperator("sample_input.txt", "\n")))
