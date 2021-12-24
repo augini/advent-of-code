@@ -5,8 +5,12 @@ import sys
 sys.path.append('..')
 from utils.get_input import get_sample
 
+# [({(<(())[]>[[{[]{<()<>> 
+# [({(
+
 # part 1
 def calculate_syntax_error_score(input):
+  # print(input)
   correct_pairs = {
     "(": ")",
     "{": "}",
@@ -34,7 +38,7 @@ def calculate_syntax_error_score(input):
       
 
     stack.append(temp)
-  
+  # print(corrupted_lines)
   
   scores ={
     ")":3,
@@ -50,7 +54,7 @@ def calculate_syntax_error_score(input):
   return sum
 
 
-# print(calculate_syntax_error_score(get_sample("input.txt")))
+# print(calculate_syntax_error_score(get_sample("sample_input.txt")))
 
 def findMiddle(input_list):
     middle = float(len(input_list))/2
@@ -82,8 +86,6 @@ def autocomplete(input):
       elif correct_pairs.get(temp[-1]) == char:
         temp.pop()
       elif correct_pairs.get(temp[-1]) != char and correct_pairs.get(char) not in wrong_pairs:
-        filtered = filter(lambda error_line: error_line != line, input)
-        input = list(filtered)
         append = False
         break
       else:
@@ -92,10 +94,11 @@ def autocomplete(input):
     if append:
       stack.append(temp)
 
-  
+  # print(stack)
   for x in range(len(stack)):
     stack[x].reverse()
 
+  # print(stack)
   results = []
 
   for line in stack:
@@ -116,4 +119,6 @@ def autocomplete(input):
   results.sort()
   return findMiddle(results)
 
-print(autocomplete(get_sample("input.txt")))
+print(autocomplete(get_sample("sample_input.txt")))
+
+
