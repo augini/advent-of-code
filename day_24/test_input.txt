@@ -1,0 +1,126 @@
+             x_________y_______z_________w____
+inp w      | 
+mul x 0    | 0
+add x z    | z                 z
+mod x 26   | z%26  
+div z 1    |                   z
+add x 10   | (z%26)+10
+eql x w    | 0                                       # w is lower than 10 since that is the input
+eql x 0    | 1         
+mul y 0    |          0
+add y 25   |          25
+mul y x    |          25
+add y 1    |          26
+mul z y    |                   26z
+mul y 0    |          0
+add y w    |          w
+add y 12   |          w+12
+mul y x    |          w+12 
+add z y    |                  26z+w+12
+
+26z+w+12 - final change made to z
+-------------------------------------2-digit---------------------------------------------
+
+             x_________y_______z_________w____
+inp w       | 
+mul x 0     | 0
+add x z     | z                 z
+mod x 26    | z%26  
+div z 1     |                   z
+add x 10    | (z%26)+10
+eql x w     | 0                                       # w is lower than 10 since that is the input
+eql x 0     | 1         
+mul y 0     |          0
+add y 25    |          25
+mul y x     |          25
+add y 1     |          26
+mul z y     |                   26z
+mul y 0     |          0
+add y w     |          w
+add y 10    |          w+10
+mul y x     |          w+10 
+add z y     |                  26z+w+10
+
+26z+w+10 - final chane made to z
+
+
+-------------------------------------3-digit---------------------------------------------
+
+             x_________y_______z_________w____
+inp w       | 
+mul x 0     | 0
+add x z     | z                 z
+mod x 26    | z%26  
+div z 1     |                   z
+add x 12    | (z%26)+12
+eql x w     | 0                                       # w is lower than 10 since that is the input
+eql x 0     | 1         
+mul y 0     |          0
+add y 25    |          25
+mul y x     |          25
+add y 1     |          26
+mul z y     |                   26z
+mul y 0     |          0
+add y w     |          w
+add y 8     |          w+8
+mul y x     |          w+8
+add z y     |                  26z+w+8
+
+26z+w+8 - final chane made to z
+
+-------------------------------------4-digit---------------------------------------------
+
+             x_________y_______z_________w____
+inp w       |  
+mul x 0     | 0
+add x z     | z                 z
+mod x 26    | z%26  
+div z 1     |                   z
+add x 11    | (z%26)+11
+eql x w     | 0                                       # w is lower than 10 since that is the input
+eql x 0     | 1         
+mul y 0     |          0
+add y 25    |          25
+mul y x     |          25
+add y 1     |          26
+mul z y     |                   26z
+mul y 0     |          0
+add y w     |          w
+add y 4     |          w+4
+mul y x     |          w+4
+add z y     |                  26z+w+4
+
+26z+w+4 - final chane made to z
+
+
+-------------------------------------5-digit---------------------------------------------
+
+             x_________y_______z_________w____
+inp w      |  
+mul x 0    | 0
+add x z    | z                 z
+mod x 26   | z%26  
+div z 26   |                   [z/26]                # we take the floor of result, [] means floor in this case
+add x 0    | z%26
+eql x w    | 1 or 0                                  
+eql x 0    | 0 or 1      
+mul y 0    |          0
+add y 25   |          25
+mul y x    |          0 or 25
+add y 1    |          1 or 26
+mul z y    |                   [z/26] or 26[z/26]
+mul y 0    |          0
+add y w    |          w
+add y 3    |          w+3
+mul y x    |          0 or w+3
+add z y    |                   [z/26]+w+3 or 26[z/26]+w+3
+
+26[z/26]+w+3 or [z/26]+w+3: either of this will be the final change made to z
+meaning, we either divide z by 26 or do not divide it, resulting on the same value it started with
+
+The operations that have div/26 in them are to decrease the z since the other ones are increasing z by 26:
+In my examples: 
+
+incrementals: 1 2 3 4 6 7 12
+decrementals: 5 8 9 10 11 13 14
+
