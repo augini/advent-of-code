@@ -1,0 +1,31 @@
+start-A
+start-b
+A-c
+A-b
+b-d
+A-end
+b-end
+
+------adjacency list------
+{
+  start: [ 'A', 'b' ],
+  A: [ 'c', 'b', 'end' ],
+  b: [ 'A', 'd', 'end' ],
+  c: [ 'A' ],
+  d: [ 'b' ]
+}
+--------------------------
+
+queue 
+
+[
+  {A:'start'},
+  {b:'start'},
+  {c:'start, A'},
+  {b:'start, A'},
+  {end:'start, A}
+]
+
+------
+pat
+["start", 'start, A']

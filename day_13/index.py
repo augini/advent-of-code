@@ -14,8 +14,11 @@ def fold_once(input):
       input.pop()
 
   input = input[0:len(input)-2]
+  print(instrucions)
 
   instrucions.reverse()
+  print(instrucions)
+  # print(input)
 
   for i in range(0,len(instrucions)):
     in1 = instrucions[i].split('=')[0]
@@ -39,7 +42,7 @@ def fold_once(input):
           input[c] = f"{in2-(i1-in2)},{i2}"
   
   input = list(dict.fromkeys(input))
-  print(input)
+  # print(input)
 
   for coors in input:
     print(f"({coors})")
