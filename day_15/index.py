@@ -103,8 +103,6 @@ puzzle_input = """91977999671429497119249125598572664259898928957953499899356788
 """
 
 
-
-
 def get_values(dictionary):
   points = list(dictionary.keys())[0]
   path = list(dictionary.values())[0]
@@ -129,22 +127,21 @@ def lowest_risk_level_path(path):
   for y in range(len(new_path)):
     for x in range(len(new_path[y])):
       # print(y,x, new_path[y][x])
+      bottom, prev, current = f"{y-1},{x}", f"{y},{x-1}", f"{y},{x}"
       _min = 0
 
       if y == 0:
         if x == 0: 
-          all_coors[f"{y},{x}"] = 0
+          all_coors[current] = 0
           new_path[y][x] = 0
         else:
-          _min = all_coors[f"{y},{x-1}"] if all_coors[f"{y},{x-1}"] < 1000 else 1000
-
+          _min = all_coors[prev] if all_coors[prev] < 1000 else 1000
       elif x == 0:
-        _min = all_coors[f"{y-1},{x}"] if all_coors[f"{y-1},{x}"] < 1000 else 1000
-        
+        _min = all_coors[bottom] if all_coors[bottom] < 1000 else 1000
       else:
-         _min = all_coors[f"{y},{x-1}"] if all_coors[f"{y},{x-1}"] < all_coors[f"{y-1},{x}"] else all_coors[f"{y-1},{x}"]
+         _min = all_coors[prev] if all_coors[prev] < all_coors[bottom] else all_coors[bottom]
       
-      all_coors[f"{y},{x}"] =  _min + new_path[y][x]
+      all_coors[current] =  _min + new_path[y][x]
 
   return list(all_coors.values())[-1]
 
