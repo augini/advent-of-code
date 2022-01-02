@@ -99,15 +99,53 @@ puzzle_input = """91977999671429497119249125598572664259898928957953499899356788
 1498696799724916519515862974893197748928697249299992999324589578163647988841492955996651937876156824
 8213962617983488919185253728699798941119614245999164229898897586922898965749999199113889146668885849
 9547881767999183972817991938941799195699921244999582934834983168189915191587942659337539518189911869
-9958877559791958745797981284916899539983986257869698291725831953753946984998659154999916977712958828
-"""
+9958877559791958745797981284916899539983986257869698291725831953753946984998659154999916977712958828"""
 
+
+# suppplementary function for part 2 #
+def extend_map(grid):
+  grid.pop()
+  end_column = (len(grid)-1)*5
+  end_row = len(grid[0])*5
+
+  row_length = len(grid[0])
+  column_length = len(grid)-1
+
+  for y in range(((len(grid))*5)-1):
+    temp = []
+    for x in range(len(grid[0])):
+      if y/column_length >=1:
+        prev_y = y-(column_length)
+        if grid[prev_y][x] == 9:
+          temp.append(1)
+        else:
+          temp.append(grid[prev_y][x]+1)
+    if len(temp) > 1:
+      grid.append(temp)
+
+  for y in range(len(grid)):
+    for x in range(len(grid[0])*5):
+      if x >= end_row:
+        continue
+
+      if x/(row_length) >= 1:
+        prev_x = grid[y][x-(row_length)]
+        if prev_x == 9:
+          grid[y].append(1)
+        else:
+          grid[y].append(prev_x+1)
+
+  # for list in grid:
+  #   print(list)
+
+  return grid
 
 def get_values(dictionary):
   points = list(dictionary.keys())[0]
   path = list(dictionary.values())[0]
 
   return points, path
+
 
 def lowest_risk_level_path(path):
   new_path = [] # array of integer arrays
@@ -122,6 +160,9 @@ def lowest_risk_level_path(path):
       all_coors[f"{line},{point}"] = 1000
 
     new_path.append(temp)
+
+  # extend the original map
+  new_path = extend_map(new_path)
 
   # solve by looping through the grid
   for y in range(len(new_path)):
@@ -143,7 +184,7 @@ def lowest_risk_level_path(path):
       
       all_coors[current] =  _min + new_path[y][x]
 
-  return list(all_coors.values())[-1]
+return list(all_coors.values())[-1]
 
 print(lowest_risk_level_path(puzzle_input))
 
