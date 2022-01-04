@@ -7,28 +7,21 @@ sys.path.append('..')
 from utils.get_input import get_sample, get_sample_strip
 
 def find_pairs(input):
-  template = input[0:1][0]
+  template = input[0]
   pairs = dict()
 
   for x in range(1, len(input)-2, 3):
     pairs[f"{input[x]}"] = input[x+2]
 
-  joint_pairs = []
-  temp = template
-
   for counter in range(10):
-    variable = temp
-    for i in range(1, len(temp)):
-      variable = variable[0:i+(i-1)] + pairs[f"{temp[i-1]}{temp[i]}"] + variable[i+(i-1):len(variable)]
+    variable = template
+    for i in range(1, len(template)):
+      variable = variable[0:i+(i-1)] + pairs[f"{template[i-1]}{template[i]}"] + variable[i+(i-1):len(variable)]
     
-    # print(variable)
-    temp = variable
-    joint_pairs.append(variable)
+    template = variable
   
-  last_code = joint_pairs[-1]
   counts = defaultdict(int)
-
-  for letter in last_code:
+  for letter in template:
     counts[letter]+=1
   
   total_counts = list(counts.values())
@@ -36,7 +29,7 @@ def find_pairs(input):
 
   return total_counts[-1] - total_counts[0]
 
-# print(find_pairs(get_sample("input.txt")))
+print(find_pairs(get_sample("input.txt")))
 
 def find_pairs_2(input):
    template = input[0:1][0]
@@ -79,9 +72,9 @@ def parse(lines):
 def calculate(template, insertions, steps):
     char_counter = Counter(template)
     pairs = Counter()
-
     for i in range(len(template) - 1):
         pairs[template[i:i + 2]] += 1
+    print(pairs)
 
     for step in range(steps):
         step_counter = Counter()
@@ -101,7 +94,7 @@ def calculate(template, insertions, steps):
 
     return most_frequent - least_frequent
 
-input_string = get_sample_strip("input.txt","\n")
+input_string = get_sample_strip("sample_input.txt","\n")
 template, instrs =  parse(input_string)
 
-print(calculate(template, instrs, 40))
+# print(calculate(template, instrs, 40))

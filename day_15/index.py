@@ -104,8 +104,6 @@ puzzle_input = """91977999671429497119249125598572664259898928957953499899356788
 
 # suppplementary function for part 2 #
 def extend_map(grid):
-  grid.pop()
-  end_column = (len(grid)-1)*5
   end_row = len(grid[0])*5
 
   row_length = len(grid[0])
@@ -168,7 +166,7 @@ def lowest_risk_level_path(path):
   for y in range(len(new_path)):
     for x in range(len(new_path[y])):
       # print(y,x, new_path[y][x])
-      bottom, prev, current = f"{y-1},{x}", f"{y},{x-1}", f"{y},{x}"
+      top, prev, current = f"{y-1},{x}", f"{y},{x-1}", f"{y},{x}"
       _min = 0
 
       if y == 0:
@@ -178,13 +176,13 @@ def lowest_risk_level_path(path):
         else:
           _min = all_coors[prev] if all_coors[prev] < 1000 else 1000
       elif x == 0:
-        _min = all_coors[bottom] if all_coors[bottom] < 1000 else 1000
+        _min = all_coors[top] if all_coors[top] < 1000 else 1000
       else:
-         _min = all_coors[prev] if all_coors[prev] < all_coors[bottom] else all_coors[bottom]
+         _min = all_coors[prev] if all_coors[prev] < all_coors[top] else all_coors[top]
       
       all_coors[current] =  _min + new_path[y][x]
 
-return list(all_coors.values())[-1]
+  return list(all_coors.values())[-1]
 
 print(lowest_risk_level_path(puzzle_input))
 
