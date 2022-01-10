@@ -53,14 +53,14 @@ def shoot_probe(input):
           x_velocity = x_velocity - 1 if x_velocity > 0 else 0
           y_velocity -=1
 
-  print(matching_velocities)
+  # print(matching_velocities)
   return len(matching_velocities)
 
 
 sample_input = "target area: x=20..31 y=-10..-4"
-input = "target area: x=195..239 y=-93..-66"
+input = "target area: x=25..68 y=-260..-199"
 
-print(shoot_probe(sample_input))
+print(shoot_probe(input))
 
 # 144 -> too low
 # 145 -> too low
