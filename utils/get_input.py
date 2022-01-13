@@ -1,3 +1,4 @@
+from pathlib import Path
 
 
 # function to convert text into list of strings

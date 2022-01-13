@@ -1,4 +1,4 @@
-def get_vicinity_code(board, x, y):
+def get_decimal_value(board, x, y):
     seq = ""
     for i in range(y - 1, y + 2):
         for j in range(x - 1, x + 2):
@@ -56,6 +56,7 @@ key = [1 if c == "#" else 0 for c in key]
 # convert the image into a board represented by a dictionary
 # key is the index
 # value is zero or one
+
 board = dict()
 for i, row in enumerate(image):
     for j, cel in enumerate(row):
@@ -65,11 +66,13 @@ for i, row in enumerate(image):
             board[(i,j)] = 0
 
 # start applying image enhancement algorithm
-for k in range(2):
+for k in range(50):
+    # check the element at zero index of algorithm to determine surrounding layers
     if key[0] == 1:
         fill = k % 2
     else:
         fill = 0
+
     add_layer(board, fill)
     add_layer(board, fill)
     
@@ -84,7 +87,7 @@ for k in range(2):
     
     for i in range(y1, y2):
         for j in range(x1, x2):
-            code = get_vicinity_code(board, j, i)
+            code = get_decimal_value(board, j, i)
             new_board[(i,j)] = key[code]
 
     board = new_board
