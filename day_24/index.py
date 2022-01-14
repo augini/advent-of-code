@@ -19,13 +19,14 @@ def decrement_array_int(starting_set):
       value = int("".join(string_ints)) - 1
     else:
       value = int("".join(string_ints)) - 1
-    
+
   s = str(value)
+  print(s)
   temp = []
 
-  for y in range(1, len(s)+1):
-    temp.append(int(s[len(s)-y]))
-
+  for y in range(0, len(s)):
+    temp.append(int(s[y]))
+    
   return temp
 
 def custom_ALU(commands, variables, input_number):
@@ -61,16 +62,6 @@ def custom_ALU(commands, variables, input_number):
   return variables
 
 
-def check_variable_inputs():
-  total = []
-  starting_set = [9,9,9,9,9,9,9]
-  current_index = 0
-
-  standard_input = parse("sample_input.txt")
-
-  print(standard_input)
-
-# logic tried 3 weeks ago
 # def check_variable_inputs():
 #   total = []
 #   starting_set = [9,9,9,9,9,9,9]
@@ -78,37 +69,81 @@ def check_variable_inputs():
 
 #   standard_input = parse("sample_input.txt")
 
-#   zero_in_z = False
-#   while zero_in_z == False:
-#     temp = []
-#     current_index = 0
-#     starting_set = decrement_array_int(starting_set)
-#     print(starting_set)
-#     variables = {
-#     "x": 0,
-#     "y": 0,
-#     "z": 0,
-#     "w": 0
-#     }
-#     for i in range(14):
-#       if (i+1) in [1,2,3,4,6,7,12]:
-#         item = starting_set[current_index]
-#         current_index+=1
-#         temp.append(item)
-#         variables = custom_ALU(standard_input[i*18:(i+1)*18], variables, item)
+#   print(standard_input)
 
-#       elif (i+1) in [5,8,9,10,11,13,14]:
-#         c = math.floor(variables["z"]%26)
-#         if c > 0 and c<=9:
-#           temp.append(c)
-#           variables = custom_ALU(standard_input[i*18:(i+1)*18], variables, c)
+increments = {"0": 12, "1": 10, "2": 8, "3": 4,"5": 10, "6": 6, "11": 6}
+required =  {"4": 0, "7": 12, "8": 15, "9": 15, "10": 4, "12": 5, "13": 12}
 
-#       if variables["z"] == 0:
-#         return temp
+def make_operations(digits):
+    z = 0
+    res = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    idx = 0
+
+    for i in range(14):
+        increment = increments[f"{i}"] if f"{i}" in increments.keys() else None
+        mod_req = required[f"{i}"] if f"{i}" in required.keys() else None
+
+        if increment == None:
+            if mod_req != None:
+              res[i] = ((z % 26) - mod_req)
+              z = math.floor(z/26)
+              if not (1 <= res[i] <= 9):
+                  return False
+
+        else:
+            if increment != None:
+              z = z * 26 + digits[idx] + increment
+              res[i] = digits[idx]
+              idx += 1
+    print(res)
+    return res
+
+# logic tried 3 weeks ago
+def check_variable_inputs():
+  total = []
+  starting_set = [9,9,9,9,9,9,9]
+  current_index = 0
+
+  standard_input = parse("input.txt")
+
+  input_range = product(range(9,0,-1), repeat=7)
+
+  # zero_in_z = False
+  # while zero_in_z == False:
+  #   temp = []
+  #   current_index = 0
+  #   starting_set = decrement_array_int(starting_set)
+  #   if 0 in starting_set:
+  #     continue
+  #   print(starting_set)
+  #   variables = {"x": 0, "y": 0, "z": 0, "w": 0 }
+
+  #   for i in range(14):
+  #     if (i+1) in [1,2,3,4,6,7,12]:
+  #       item = starting_set[current_index]
+  #       current_index+=1
+  #       temp.append(item)
+  #       variables = custom_ALU(standard_input[i*18:(i+1)*18], variables, item)
+
+  #     elif (i+1) in [5,8,9,10,11,13,14]:
+  #       c = math.floor(variables["z"]%26)
+  #       if c > 0 and c<=9:
+  #         temp.append(c)
+  #         variables = custom_ALU(standard_input[i*18:(i+1)*18], variables, c)
+
+  #     if variables["z"] == 0:
+  #       print(variables)
+  #       return temp
       
-#     # print(temp)
-#     total.append(temp)
-  
-#   print(variables)
+    # print(temp)
+    # total.append(temp)
+
+  for digits in input_range:
+    res = make_operations(digits)
+    if res:
+        print("".join([str(i) for i in res]))
+        break
+  # print(variables)
 
 check_variable_inputs()
+

@@ -1,0 +1,31 @@
+| same |                    | inp w     | inp w      | inp w     | inp w      | inp w      | inp w       | inp w       | inp w        | inp w        | inp w        | inp w       | inp w       | inp w      | inp w      |  
+| same | x=0                | mul x 0   | mul x 0    | mul x 0   | mul x 0    | mul x 0    | mul x 0     | mul x 0     | mul x 0      | mul x 0      | mul x 0      | mul x 0     | mul x 0     | mul x 0    | mul x 0    | 
+| same | x=z                | add x z   | add x z    | add x z   | add x z    | add x z    | add x z     | add x z     | add x z      | add x z      | add x z      | add x z     | add x z     | add x z    | add x z    | 
+| same | x=z%26             | mod x 26  | mod x 26   | mod x 26  | mod x 26   | mod x 26   | mod x 26    | mod x 26    | mod x 26     | mod x 26     | mod x 26     | mod x 26    | mod x 26    | mod x 26   | mod x 26   |  
+|      | z=z or z/26        | div z 1   | div z 1    | div z 1   | div z 1    | div z 26   | div z 1     | div z 1     | div z 26     | div z 26     | div z 26     | div z 26    | div z 1     | div z 26   | div z 26   |  
+|      | x = x + (h than 9) | add x 10  | add x 10   | add x 12  | add x 11   | add x 0    | add x 15    | add x 13    | add x -12    | add x -15    | add x -15    | add x -4    | add x 10    | add x -5   | add x -12  |  
+| same |x = 0 or (1 or 0)   | eql x w   | eql x w    | eql x w   | eql x w    | eql x w    | eql x w     | eql x w     | eql x w      | eql x w      | eql x w      | eql x w     | eql x w     | eql x w    | eql x w    |
+| same |x = 1 or (0 or 1)   | eql x 0   | eql x 0    | eql x 0   | eql x 0    | eql x 0    | eql x 0     | eql x 0     | eql x 0      | eql x 0      | eql x 0      | eql x 0     | eql x 0     | eql x 0    | eql x 0    |
+| same |y=0                 | mul y 0   | mul y 0    | mul y 0   | mul y 0    | mul y 0    | mul y 0     | mul y 0     | mul y 0      | mul y 0      | mul y 0      | mul y 0     | mul y 0     | mul y 0    | mul y 0    |
+| same |y=25                | add y 25  | add y 25   | add y 25  | add y 25   | add y 25   | add y 25    | add y 25    | add y 25     | add y 25     | add y 25     | add y 25    | add y 25    | add y 25   | add y 25   | 
+| same |y=25 or (0 or 25)   | mul y x   | mul y x    | mul y x   | mul y x    | mul y x    | mul y x     | mul y x     | mul y x      | mul y x      | mul y x      | mul y x     | mul y x     | mul y x    | mul y x    |
+| same |y=26 or (1 or 26)   | add y 1   | add y 1    | add y 1   | add y 1    | add y 1    | add y 1     | add y 1     | add y 1      | add y 1      | add y 1      | add y 1     | add y 1     | add y 1    | add y 1    |
+| same |z=26z or(z/26 or z) | mul z y   | mul z y    | mul z y   | mul z y    | mul z y    | mul z y     | mul z y     | mul z y      | mul z y      | mul z y      | mul z y     | mul z y     | mul z y    | mul z y    |
+| same |y=0                 | mul y 0   | mul y 0    | mul y 0   | mul y 0    | mul y 0    | mul y 0     | mul y 0     | mul y 0      | mul y 0      | mul y 0      | mul y 0     | mul y 0     | mul y 0    | mul y 0    |
+| same |y=w                 | add y w   | add y w    | add y w   | add y w    | add y w    | add y w     | add y w     | add y w      | add y w      | add y w      | add y w     | add y w     | add y w    | add y w    |
+|      |y=w+(10~13)         | add y 12  | add y 10   | add y 8   | add y 4    | add y 3    | add y 10    | add y 6     | add y 13     | add y 8      | add y 1      | add y 7     | add y 6     | add y 9    | add y 9    |
+| same |y=y or (0 or y)     | mul y x   | mul y x    | mul y x   | mul y x    | mul y x    | mul y x     | mul y x     | mul y x      | mul y x      | mul y x      | mul y x     | mul y x     | mul y x    | mul y x    |
+|      |y=26z+w+(10~13)     | add z y   | add z y    | add z y   | add z y    | add z y    | add z y     | add z y     | add z y      | add z y      | add z y      | add z y     | add z y     | add z y    | add z y    |
+        or
+        y=((z/26)+w+10~13)      1            1            1           1            2             1            1               2              2               2            2             1             2            2
+           or z+w+(10~13)
+
+At the end 3 different inputs we cand end up with two differet types of operations are:
+1 ) z = 26z+w+certain_number
+2 ) z = (z/26+w+certain_number) or z+w+certain_number
+   To make the operation decremental to get closer to 0, next digit (w) will be determined by from line 2 until line7
+   x=0, x=z%26, x=x+10~14 => x=(z%26)+10~14
+   w = (z%26)-10~14
+
+up -> 1,2,3,4,6,7,12
+down -> 5,8,9,10,11,13,14
