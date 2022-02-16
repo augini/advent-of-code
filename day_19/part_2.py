@@ -64,6 +64,10 @@ def mag(a):
     return a[0]**2 + a[1]**2 + a[2]**2
 
 
+def manhattan_dist(a, b):
+    return sum([abs(a[i] - b[i]) for i in range(3)])
+
+
 @lru_cache(None)
 def rotations(point):
     # https://i.imgur.com/Ff1vGT9.png
@@ -98,8 +102,7 @@ def distance_set(beacons):
 
 
 def might_have_overlap(a, b):
-    # Determine whether two scanners might overlap based on hashes only
-    # (misleading naming)
+    # Determine whether two scanners might overlap based on distances only
     if len(set.intersection(distance_set(a), distance_set(b))) >= 66:
         return True
     return False
@@ -174,6 +177,8 @@ for i in range(len(scanners)):
 # DFS time!
 beacons = set()
 
+canonical_pos = {}
+
 stack = [(0, (0, 0, 0), 0)]
 visited = set()
 while len(stack) > 0:
@@ -182,6 +187,8 @@ while len(stack) > 0:
     if node in visited:
         continue
     visited.add(node)
+
+    canonical_pos[node] = trans
 
     # Add these beacons
     cur_beacons = [add(rotations(beacon)[rot], trans)
@@ -197,4 +204,9 @@ while len(stack) > 0:
         new_rot = compose(nbr[2], rot)
         stack.append((nbr[0], new_trans, new_rot))
 
-print(len(beacons))
+
+max_dist = 0
+for a, b in combinations(canonical_pos.values(), r=2):
+    max_dist = max(max_dist, manhattan_dist(a, b))
+
+print(max_dist)

@@ -95,7 +95,7 @@ def make_operations(digits):
               z = z * 26 + digits[idx] + increment
               res[i] = digits[idx]
               idx += 1
-    print(res)
+
     return res
 
 # logic tried 3 weeks ago

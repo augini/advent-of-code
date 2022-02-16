@@ -15,9 +15,9 @@
 | same |y=w                 | add y w   | add y w    | add y w   | add y w    | add y w    | add y w     | add y w     | add y w      | add y w      | add y w      | add y w     | add y w     | add y w    | add y w    |
 |      |y=w+(10~13)         | add y 12  | add y 10   | add y 8   | add y 4    | add y 3    | add y 10    | add y 6     | add y 13     | add y 8      | add y 1      | add y 7     | add y 6     | add y 9    | add y 9    |
 | same |y=y or (0 or y)     | mul y x   | mul y x    | mul y x   | mul y x    | mul y x    | mul y x     | mul y x     | mul y x      | mul y x      | mul y x      | mul y x     | mul y x     | mul y x    | mul y x    |
-|      |y=26z+w+(10~13)     | add z y   | add z y    | add z y   | add z y    | add z y    | add z y     | add z y     | add z y      | add z y      | add z y      | add z y     | add z y     | add z y    | add z y    |
+|      |z=26z+w+(10~13)     | add z y   | add z y    | add z y   | add z y    | add z y    | add z y     | add z y     | add z y      | add z y      | add z y      | add z y     | add z y     | add z y    | add z y    |
         or
-        y=((z/26)+w+10~13)      1            1            1           1            2             1            1               2              2               2            2             1             2            2
+        z=((z/26)+w+10~13)      1            1            1           1            2             1            1               2              2               2            2             1             2            2
            or z+w+(10~13)
 
 At the end 3 different inputs we cand end up with two differet types of operations are:

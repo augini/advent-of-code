@@ -16,7 +16,9 @@ def move_sea_cucumbers(map):
 
   has_moved = True
   counter = 0
+
   while has_moved:
+
     # move east going cucumbers first
     has_moved = False
     currently_moved = []
@@ -61,8 +63,8 @@ def move_sea_cucumbers(map):
     # for line in new_map:
     #   print("".join(line)) 
    
-  # for line in new_map:
-  #   print("".join(line))            
+  for line in new_map:
+    print("".join(line))            
                    
   return counter
 
