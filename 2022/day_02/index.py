@@ -19,38 +19,19 @@ def parse(puzzle_input, type=1, seperator="\n"):
 
 
 def part1(data):
-    calories = []
-    temp = 0
-
-    for x in range(len(data) - 1):
-        if data[x] != "":
-            temp += int(data[x])
-        else:
-            calories.append(int(temp))
-            temp = 0
-
-    return max(calories)
+    """Solve part 1."""
 
 
 def part2(data):
-    calories = []
-    temp = 0
-
-    for x in range(len(data) - 1):
-        if data[x] != "":
-            temp += int(data[x])
-        else:
-            calories.append(int(temp))
-            temp = 0
-
-    calories = sorted(calories, reverse=True)
-    return sum(calories[:3])
+    """Solve part 2."""
 
 
 def solve(puzzle_input):
     # Solve the puzzle for the given input.
-
+    # parse the given input
     data = parse(puzzle_input, 2)
+
+    # get the solutions for each problem
     solution1 = part1(data)
     solution2 = part2(data)
 
@@ -58,9 +39,9 @@ def solve(puzzle_input):
 
 
 if __name__ == "__main__":
-    print(sys.argv)
+    #  print(sys.argv)
     for path in sys.argv[1:]:
-        print(f"{path}:")
+        #   print(f"{path}:")
         puzzle_input = pathlib.Path(path).read_text()
         solutions = solve(puzzle_input)
         print("\n".join(str(solution) for solution in solutions))

@@ -1,0 +1,1 @@
+nodemon --exec python3 index.py sample_input.txt
