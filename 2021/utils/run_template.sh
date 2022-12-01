@@ -7,4 +7,4 @@ from utils.get_input import get_sample"
 echo "Enter the day number of Advent of Code"
 read day_number
 
-cd .. && mkdir day_$day_number && cd day_$day_number && touch index.py && echo $DIR_TEMPLATE > index.py && touch sample_input.txt && touch input.txt
+mkdir day_$day_number && cd day_$day_number && touch index.py && echo $DIR_TEMPLATE > index.py && touch sample_input.txt && touch input.txt
