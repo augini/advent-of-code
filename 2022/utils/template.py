@@ -14,8 +14,6 @@ def parse(puzzle_input, type=1, seperator="\n"):
         return list(puzzle_input.split(seperator))
     elif type == 3:
         return list(puzzle_input.strip().split(seperator))
-    else:
-        return "Freestyle"
 
 
 def part1(data):

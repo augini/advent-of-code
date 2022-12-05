@@ -60,7 +60,7 @@ def part1(data):
         temp = stacks[key].pop()
         result += temp
 
-    return "".join(result)
+    return result
 
 
 def part2(data):
@@ -105,7 +105,7 @@ def part2(data):
         temp = stacks[key].pop()
         result += temp
 
-    return "".join(result)
+    return result
 
 
 def solve(puzzle_input):
