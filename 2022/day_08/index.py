@@ -27,7 +27,7 @@ def part1(data):
     row = len(g)
     col = len(g[0])
 
-    visible = 0
+    # visible = 0
 
     top = [[-1]*col for _ in range(row)]
     left = [[-1]*col for _ in range(row)]
@@ -58,21 +58,27 @@ def part1(data):
                 cur_max_top = val
             top[c][r] = cur_max_top
 
-            # top to bottom
+            #bottom to top
             val = g[col - c - 1][r]
             if val > cur_max_bottom:
                 cur_max_bottom = val
             bottom[col - c - 1][r] = cur_max_bottom
-    visible = []
+
+    counter=0
+
     for r in range(row):
         for c in range(col):
             if r == 0 or c == 0 or r == row-1 or c == col-1:
-                visible += [(r, c)]
+                # visible += [(r, c)]
+                counter+=1
             else:
                 val = g[r][c]
                 if val > left[r][c-1] or val > right[r][c+1] or val > top[r-1][c] or val > bottom[r+1][c]:
-                    visible += [(r, c)]
-    return len(visible)
+                    # visible += [(r, c)]
+                    counter+=1
+    return counter
+# time O(n*m)
+# space O(n*m)
 
 def init_arrays(rows, cols, num_height, init_val):
     return [[[init_val]*num_height for _ in range(cols)] for _ in range(rows)]
@@ -140,7 +146,8 @@ def part2(data):
             if mr < bottom[mr][mi][val]:
                 bottom[mr][mi][val] = mr
 
-    res = [[-1]*cols for _ in range(rows)]
+    # res = [[-1]*cols for _ in range(rows)]
+    _max = 0
     for r in range(rows):
         for c in range(cols):
             val = g[r][c]
@@ -181,9 +188,15 @@ def part2(data):
                     next_element = rows - 1
                 visible *= (next_element - r)
 
-            res[r][c] = visible
+            # res[r][c] = visible
+            if visible > _max:
+                _max = visible
 
-    return max([max(r) for r in res])
+    # return max([max(r) for r in res])
+    return _max
+
+# time O(n*m+(n*m^2)) = O(n*m^2)
+# space O(n*m)
 
 def solve(puzzle_input):
     # Solve the puzzle for the given input.
