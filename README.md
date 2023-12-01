@@ -1,6 +1,6 @@
 # Advent of Code
 
-My solutions solutions for [Advent of Code](https://adventofcode.com/)
+My solutions for [Advent of Code](https://adventofcode.com/)
 
 **2021** - [Python](https://www.python.org/).
 
