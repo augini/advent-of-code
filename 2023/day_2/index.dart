@@ -11,6 +11,7 @@ int partOne(List<String> input) {
 
 int partTwo(List<String> input) {
   // Solve part 2
+
   return 2;
 }
 
