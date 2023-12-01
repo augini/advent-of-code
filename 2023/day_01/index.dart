@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:convert';
 
 bool isNumeric(String s) {
   if (s == null) {
@@ -12,40 +11,35 @@ Future readFileAsync(path) async {
   return await new File(path).readAsString();
 }
 
-Future<void> main() async {
-  String input = await readFileAsync('./input.txt');
-  List<String> inputList = input.split("\n");
+int partOne(List<String> input) {
   List<int> result = [];
 
-  // part 1
-  for (var i = 0; i < inputList.length; i++) {
+  for (var i = 0; i < input.length; i++) {
     List<String> numbers = [];
-    for (var j = 0; j < inputList[i].length; j++) {
-      String curr = inputList[i][j];
+
+    for (var j = 0; j < input[i].length; j++) {
+      String curr = input[i][j];
       if (isNumeric(curr)) {
         numbers.add(curr);
       }
     }
+
     if (numbers.length > 0) {
       result.add(int.parse(numbers[0] + numbers.last));
     }
   }
 
-  // print(result.reduce((a, b) => a + b));
+  return result.reduce((a, b) => a + b);
+}
 
-  // part 2
+// Steps - Part 2
+// 1. Iterate over the input and append digits to the list
+// 2. If the string starting from the current index starts with word representations of digits, append the index + 1 of that digit to the list
+// 3. Create two digit numbers and return the sum
 
-  result = [];
-  const matches = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
+int partTwo(List<String> input) {
+  List<int> result = [];
+  const digitWords = [
     'one',
     'two',
     'three',
@@ -54,67 +48,41 @@ Future<void> main() async {
     'six',
     'seven',
     'eight',
-    'nine'
+    'nine',
   ];
 
-  Map<String, String> wordToDigitMap = {
-    'one': '1',
-    'two': '2',
-    'three': '3',
-    'four': '4',
-    'five': '5',
-    'six': '6',
-    'seven': '7',
-    'eight': '8',
-    'nine': '9',
-  };
+  for (var i = 0; i < input.length; i++) {
+    List<String> numbers = [];
 
-  for (var i = 0; i < inputList.length; i++) {
-    String currentLine = inputList[i];
-    int min = currentLine.length;
-    String charAtMin = '';
+    for (var j = 0; j < input[i].length; j++) {
+      String curr = input[i][j];
 
-    int max = 0;
-    String charAtMax = '';
-
-    for (var j = 0; j < matches.length; j++) {
-      // Find the first occurrence of the search term
-      String searchTerm = matches[j];
-
-      int firstOccurrenceIndex = currentLine.indexOf(searchTerm);
-
-      if (firstOccurrenceIndex != -1) {
-        if (firstOccurrenceIndex < min) {
-          min = firstOccurrenceIndex;
-          charAtMin = searchTerm;
-        }
-      }
-
-      // Find the last occurrence of the search term
-      int lastOccurrenceIndex = currentLine.lastIndexOf(searchTerm);
-      if (lastOccurrenceIndex != -1) {
-        if (lastOccurrenceIndex > max) {
-          max = lastOccurrenceIndex;
-          charAtMax = searchTerm;
+      if (isNumeric(curr)) {
+        numbers.add(curr);
+      } else {
+        for (var k = 0; k < digitWords.length; k++) {
+          if (input[i].substring(j).startsWith(digitWords[k])) {
+            numbers.add((k + 1).toString());
+          }
         }
       }
     }
 
-    String? digitOne = charAtMin;
-    String? digitTwo = charAtMax;
-
-    if (wordToDigitMap.containsKey(charAtMin)) {
-      digitOne = wordToDigitMap[charAtMin];
-    }
-
-    if (wordToDigitMap.containsKey(charAtMax)) {
-      digitTwo = wordToDigitMap[charAtMax];
-    }
-
-    print('$digitOne$digitTwo');
-    if('$digitOne$digitTwo'.length > 1){
-      result.add(int.parse('$digitOne$digitTwo'));
+    if (numbers.length > 0) {
+      result.add(int.parse(numbers[0] + numbers.last));
     }
   }
-  print(result.reduce((a, b) => a + b));
+
+  return result.reduce((a, b) => a + b);
+}
+
+Future<void> main() async {
+  String input = await readFileAsync('./input.txt');
+  List<String> inputList = input.split("\n");
+
+  // part 1
+  print(partOne(inputList));
+
+  // part 2
+  print(partTwo(inputList));
 }
