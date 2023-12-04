@@ -1,25 +1,21 @@
-def decrement_array_int(starting_set):
-  starting_set.reverse()
+import sys
+import re
+from collections import defaultdict
 
-  string_ints = [str(int) for int in starting_set]
-  string_int = "".join(string_ints)
-
-  for x in range(len(string_int)):
-    if string_int[x] == "1":
-      value = int("".join(string_ints)) - 2
-    else:
-      value = int("".join(string_ints)) - 1
-    
-  print(value)
-  s = str(value)
-
-  temp = []
-
-  for y in range(1, len(s)+1):
-    temp.append(int(s[len(s)-y]))
-
-  return temp
-
-starting_set = [0, 1, 9, 5, 9, 9, 9]
-
-print(decrement_array_int(starting_set))
+D = open(sys.argv[1]).read().strip()
+lines = D.split("\n")
+p1 = 0
+N = defaultdict(int)
+for i, line in enumerate(lines):
+    N[i] += 1
+    first, rest = line.split("|")
+    id_, card = first.split(":")
+    card_nums = [int(x) for x in card.split()]
+    rest_nums = [int(x) for x in rest.split()]
+    val = len(set(card_nums) & set(rest_nums))
+    if val > 0:
+        p1 += 2 ** (val - 1)
+    for j in range(val):
+        N[i + 1 + j] += N[i]
+print(p1)
+print(sum(N.values()))
