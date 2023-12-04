@@ -3,6 +3,7 @@
 import pathlib
 import sys
 import re
+from collections import defaultdict
 
 
 def parse(puzzle_input, type=1, seperator="\n"):
@@ -18,10 +19,6 @@ def parse(puzzle_input, type=1, seperator="\n"):
 
 def contains_symbol(top, front, back, bottom):
     return any(len(side.replace(".", "")) > 0 for side in (top, front, back, bottom))
-
-
-def is_adjacent_to_star(top, front, back, bottom):
-    return any("*" in side for side in (top, front, back, bottom))
 
 
 def is_star(char):
@@ -93,11 +90,10 @@ def part1(data):
 
 def part2(data):
     """Solve part 2."""
-    valid_numbers = []
+    nums_arouns_str = defaultdict(list)
 
     for row, line in enumerate(data):
         num = ""
-        top, bottom, front, back = "", "", "", ""
         star_indices = []
 
         for ind, char in enumerate(line):
@@ -134,12 +130,12 @@ def part2(data):
                 num = num + char
 
                 # check the number at the end of the current line
-                if is_last and is_adjacent_to_star(top, front, back, bottom):
-                    valid_numbers.append(int(num))
+                if is_last:
+                    for x, y in star_indices:
+                        nums_arouns_str[(x, y)].append(int(num))
 
             elif num:
                 # check the element next in current row
-                back = char
                 if is_star(char):
                     star_indices.append((row, ind))
 
@@ -151,16 +147,13 @@ def part2(data):
                 if row > 0 and is_star(data[row - 1][ind]):
                     star_indices.append((row - 1, ind))
 
-                if len(star_indices) > 1:
-                    print(num)
-                    for x, y in star_indices:
-                        pass
+                for x, y in star_indices:
+                    nums_arouns_str[(x, y)].append(int(num))
 
-                top, bottom, front, back = "", "", "", ""
                 num = ""
                 star_indices = []
 
-    return sum(valid_numbers)
+    return sum(nums[0] * nums[1] for nums in nums_arouns_str.values() if len(nums) == 2)
 
 
 def solve(puzzle_input):
