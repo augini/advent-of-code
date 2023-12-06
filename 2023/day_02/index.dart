@@ -11,7 +11,7 @@ bool isNumeric(String s) {
 int partOne(List<String> data) {
   // Solve part 1
   Map<String, int> valid = {"red": 12, "green": 13, "blue": 14};
-  Set<int> invalid = {};
+  // Set<int> invalid = {};
 
   data.forEach((item) {
     List<String> pieces = item.split(":");
@@ -60,7 +60,7 @@ int partTwo(List<String> input) {
   // Solve part 2
 
   return 2;
-} 
+}
 
 Future<void> main(List<String> args) async {
   String input = await readFileAsync(args[0]);
