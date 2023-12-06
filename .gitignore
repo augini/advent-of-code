@@ -2,3 +2,6 @@
 venv
 .vscode
 __pycache__
+sample_input.txt
+input.txt
+2022
