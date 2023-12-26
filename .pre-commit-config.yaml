@@ -1,9 +1,9 @@
 repos:
-    - repo: https://github.com/augini/advent-of-code
-      rev: 0.5.6
-      hooks:
-          - id: aoc-tiles
-            args:
-              - --auto-add-tiles-to-git=amend
-              - --what-to-show-on-right-side=time_and_rank
-              - --language-sorting=jl,kt,py,rs
+  - repo: https://github.com/LiquidFun/aoc_tiles
+    rev: 0.5.6
+    hooks:
+      - id: aoc-tiles
+        args:
+            - --auto-add-tiles-to-git=amend
+            - --what-to-show-on-right-side=time_and_rank
+            - --language-sorting=jl,kt,py,rs
