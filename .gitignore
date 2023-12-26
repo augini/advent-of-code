@@ -7,3 +7,4 @@ input.txt
 2022
 .aoc_tiles/*
 !.aoc_tiles/tiles/
+session.cookie
