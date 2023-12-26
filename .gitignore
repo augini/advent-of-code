@@ -5,3 +5,5 @@ __pycache__
 sample_input.txt
 input.txt
 2022
+.aoc_tiles/*
+!.aoc_tiles/tiles/
