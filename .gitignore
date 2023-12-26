@@ -4,7 +4,7 @@ venv
 __pycache__
 sample_input.txt
 input.txt
-2022
+/2022
 .aoc_tiles/*
 !.aoc_tiles/tiles/
 session.cookie
