@@ -12,6 +12,12 @@ My solutions for [Advent of Code](https://adventofcode.com/)
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
+  2024 - 2 ⭐
+</h1>
+<a href="2024/day_01/index.js">
+  <img src=".aoc_tiles/tiles/2024/01.png" width="161px">
+</a>
+<h1 align="center">
   2023 - 26 ⭐
 </h1>
 <a href="2023/day_01/index.py">
