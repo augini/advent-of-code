@@ -1,10 +1,23 @@
-.DS_Store
+# Python
 venv
-.vscode
 __pycache__
-sample_input.txt
-input.txt
+session.cookie
+
+# NodeJS
+node_modules
+package-lock.json
+eslint.config.js
+.nvmrc
+
+# General
+.DS_Store
+.vscode
 /2022
+
+# Tile Generation
 .aoc_tiles/*
 !.aoc_tiles/tiles/
-session.cookie
+
+# Advent Of Code
+sample_input.txt
+input.txt
