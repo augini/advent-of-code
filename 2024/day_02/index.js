@@ -6,15 +6,15 @@ function part1(data) {
   // Solve part 1
   let count = 0
   data.forEach((level) => {
-    const nums = level.split(" ")
-    let increasing = parseInt(nums[1]) - parseInt(nums[0]) > 0
-    let isSafe = false
+    const nums = level.split(" ").map(Number)
+    let increasing = nums[1] - nums[0] > 0
 
     let increasingCount = 0
     let decreasingCount = 0
 
     for (let i = 0; i < nums.length - 1; i++) {
-      const diff = parseInt(nums[i + 1]) - parseInt(nums[i])
+      const diff = nums[i + 1] - nums[i]
+
       if (increasing && diff >= 1 && diff <= 3) {
         increasingCount += 1
       } else if (diff < 0 && Math.abs(diff) >= 1 && Math.abs(diff) <= 3) {
@@ -22,8 +22,7 @@ function part1(data) {
       }
     }
 
-    isSafe = (increasing && increasingCount === nums.length - 1) || decreasingCount === nums.length - 1
-    if (isSafe) {
+    if ((increasing && increasingCount === nums.length - 1) || decreasingCount === nums.length - 1) {
       count += 1
     }
   })
