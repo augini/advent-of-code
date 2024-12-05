@@ -48,6 +48,7 @@ function part1(data) {
 
 function part2(data) {
   const emptyIndex = data.findIndex((line) => line === "");
+
   const rules = data.slice(0, emptyIndex).map((line) => {
     const [one, two] = line.split("|");
     return [Number(one), Number(two)];
