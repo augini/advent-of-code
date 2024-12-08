@@ -18,16 +18,16 @@ let nextDir = {
 function part1(data) {
   // Solve part 1
 
-  let col = data[0].length // Number of columns
-  let row = data.length // Number of rows
+  let row = data[0].length
+  let col = data.length
 
   let y = 0
   let x = 0
 
   let direction = "up"
 
-  for (let i = 0; i < row; i++) {
-    for (let j = 0; j < col; j++) {
+  for (let i = 0; i < col; i++) {
+    for (let j = 0; j < row; j++) {
       if (data[i][j] === "^") {
         y = i
         x = j
@@ -38,7 +38,7 @@ function part1(data) {
   let visited = {}
   visited[`${y},${x}`] = true
 
-  while (x < col && y < row && x >= 0 && y >= 0) {
+  while (x < row && y < col && x >= 0 && y >= 0) {
     const [dx, dy] = currentDir[direction]
     const ny = y + dy
     const nx = x + dx
@@ -57,28 +57,33 @@ function part1(data) {
 }
 
 function part2(data) {
-  // Solve part 1
+  // Solve part 2
 
-  let col = data[0].length // Number of columns
-  let row = data.length // Number of rows
+  let row = data[0].length
+  let col = data.length
 
   let y = 0
   let x = 0
 
   let direction = "up"
 
-  for (let i = 0; i < row; i++) {
-    for (let j = 0; j < col; j++) {
-      if (data[i][j] === "^") {
-        y = i
-        x = j
+  const setStartingCoords = () => {
+    for (let i = 0; i < col; i++) {
+      for (let j = 0; j < row; j++) {
+        if (data[i][j] === "^") {
+          y = i
+          x = j
+        }
       }
     }
   }
 
-  let visited = {}
+  setStartingCoords()
 
-  while (x < col && y < row && x >= 0 && y >= 0) {
+  let visited = {}
+  visited[`${y},${x}`] = true
+
+  while (x < row && y < col && x >= 0 && y >= 0) {
     const [dx, dy] = currentDir[direction]
     const ny = y + dy
     const nx = x + dx
@@ -94,18 +99,48 @@ function part2(data) {
     }
   }
 
-  const coords = Object.keys(visited)
+  // y,x -> coordinate to check whether causes an infinite loop
+  const causesInfiniteLoop = (checkY, checkX) => {
+    let direction = "up"
 
-  for (let coord of coords) {
-    const [y, x] = coord.split(",")
+    let visited = {}
+    visited[`${y},${x}`] = 0
 
-    let row = data[y]
-    row = row.split("")
-    row[x] = "#"
-    row = row.join()
-    data[y] = row
+    setStartingCoords()
+
+    while (x < row && y < col && x >= 0 && y >= 0) {
+      const [dx, dy] = currentDir[direction]
+      const ny = y + dy
+      const nx = x + dx
+
+      if (data[ny]?.[nx] === "#" || (ny === parseInt(checkY) && nx === parseInt(checkX))) {
+        direction = nextDir[direction]
+      } else if (!data[ny]?.[nx]) {
+        return false
+      } else {
+        y = ny
+        x = nx
+
+        if (visited[`${y},${x}`] > 10) {
+          return true
+        }
+
+        visited[`${y},${x}`] = (visited[`${y},${x}`] || 0) + 1
+      }
+    }
   }
-  return Object.values(visited).length
+
+  // Take risks 😂 but don't get stuck
+  let riskyCoords = 0
+
+  for (const key in visited) {
+    const [y, x] = key.split(",")
+    if (causesInfiniteLoop(y, x)) {
+      riskyCoords += 1
+    }
+  }
+
+  return riskyCoords
 }
 
 export function solve(puzzleInput) {
