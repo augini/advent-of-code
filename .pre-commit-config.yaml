@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: aoc-tiles
         args:
-            - --auto-add-tiles-to-git=amend
-            - --what-to-show-on-right-side=time_and_rank
-            - --language-sorting=jl,kt,py,rs
-            - --contrast-improvement-type=dark
+          - --auto-add-tiles-to-git=amend
+          - --what-to-show-on-right-side=time_and_rank
+          - --language-sorting=jl,kt,py,rs
+          - --contrast-improvement-type=dark

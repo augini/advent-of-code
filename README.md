@@ -12,7 +12,7 @@ My solutions for [Advent of Code](https://adventofcode.com/)
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2024 - 8 ⭐
+  2024 - 16 ⭐
 </h1>
 <a href="2024/day_01/index.js">
   <img src=".aoc_tiles/tiles/2024/01.png" width="161px">
@@ -25,6 +25,21 @@ My solutions for [Advent of Code](https://adventofcode.com/)
 </a>
 <a href="2024/day_04/index.js">
   <img src=".aoc_tiles/tiles/2024/04.png" width="161px">
+</a>
+<a href="2024/day_05/index.js">
+  <img src=".aoc_tiles/tiles/2024/05.png" width="161px">
+</a>
+<a href="2024/day_06/index.js">
+  <img src=".aoc_tiles/tiles/2024/06.png" width="161px">
+</a>
+<a href="2024/day_07/index.js">
+  <img src=".aoc_tiles/tiles/2024/07.png" width="161px">
+</a>
+<a href="2024/day_08/index.js">
+  <img src=".aoc_tiles/tiles/2024/08.png" width="161px">
+</a>
+<a href="2024/day_09/index.js">
+  <img src=".aoc_tiles/tiles/2024/09.png" width="161px">
 </a>
 <h1 align="center">
   2023 - 26 ⭐
