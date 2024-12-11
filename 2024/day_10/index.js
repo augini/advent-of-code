@@ -11,11 +11,13 @@ let directions = [
 
 function part1(data) {
   // Solve part 1
+
   data = data.map((row) => row.split("").map(Number))
-  const trailheads = []
 
   const col = data.length
   const row = data[0].length
+
+  const trailheads = []
 
   for (let i = 0; i < col; i++) {
     for (let j = 0; j < row; j++) {
